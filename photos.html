@@ -16,33 +16,47 @@
             color: #666;
             margin-bottom: 40px;
             display: inline-block;
+            font-size: 18px;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;  /* 缩小间距 */
         }
         .item {
             background: white;
-            padding: 50px 30px;
-            border-radius: 10px;
+            padding: 30px 20px;  /* 缩小内边距 */
+            border-radius: 8px;   /* 稍微圆角 */
             text-align: center;
             text-decoration: none;
             color: #333;
             border: 1px solid #eee;
+            transition: all 0.2s ease;
         }
         .item:hover {
             border-color: #667eea;
+            transform: translateX(5px);  /* 添加微移动效果 */
+        }
+        /* 调整图标和文字大小 */
+        .item b {
+            font-size: 18px;  /* 稍微小点 */
+            display: block;
+            margin-top: 10px;
+        }
+        .item::before {
+            font-size: 32px;  /* 图标大小 */
+            display: block;
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
     <a href="index.html" class="home-link">←</a>
     
-    <div class="grid">
-        <a href="#skating" class="item">⛸️<br><b>Figure Skating</b></a>
-        <a href="#scenery" class="item">🏞️<br><b>Sceneries</b></a>
-        <a href="#images" class="item">🎨<br><b>Images</b></a>
+    <div class="list">
+        <a href="#skating" class="item">⛸️<b>Figure Skating</b></a>
+        <a href="#scenery" class="item">🏞️<b>Sceneries</b></a>
+        <a href="#images" class="item">🎨<b>Images</b></a>
     </div>
 </body>
 </html>
