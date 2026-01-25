@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             © ${new Date().getFullYear()} Annie Yu
         </div>
         <div>
-            <a href="contact me.html" style="color: #667eea; text-decoration: none; margin: 0 10px;">Contact</a> • 
+            <a href="contact.html" style="color: #667eea; text-decoration: none; margin: 0 10px;">Contact me</a> • 
             <a href="index.html" style="color: #666; text-decoration: none; margin: 0 10px;">Home</a>
         </div>
     </div>
@@ -21,5 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
      `;
      document.body.insertAdjacentHTML('beforeend', footerHTML);
 });
+
 
 
