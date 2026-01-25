@@ -159,29 +159,34 @@
     </div>
         
     <script>
-        // 简单的交互效果
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
+    // 简单的交互效果
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+            // 悬停效果
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
             });
             
-            // 添加点击效果
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            // 点击效果：只有#链接显示提示
+            card.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') {
                     e.preventDefault();
                     alert('constructing...');
-                });
+                }
+                // 其他情况（如photos.html）正常跳转
             });
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>
+
 
 
