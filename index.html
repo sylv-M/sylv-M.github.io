@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to ya's landfill site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .sections-title {
+            text-align: center;
+            font-size: 2.2em;
+            margin: 40px 0;
+            color: #2c3e50;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .card-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .card p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- introduction -->
+    <header class="header">
+        <h1>🌱 ya's landfill</h1>
+        <p>Here is ya's landfill, including photos, journals, notes, abstract musings, codes, papers so far.</p>
+    </header>
+    
+    
+    <!-- 六大板块网格 -->
+    <div class="grid">
+        <a href="#" class="card">
+            <span class="card-icon">📷</span>
+            <h3>photos</h3>
+         </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">📝</span>
+            <h3>journals</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">✍</span>
+            <h3>notes</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">💻</span>
+            <h3>codes</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">☁️</span>
+            <h3>abstract musings</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">📑</span>
+            <h3>papers</h3>
+         </a>
+    </div>
+        
+    <script>
+        // 简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // 添加点击效果
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('constructing...');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
