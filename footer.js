@@ -17,4 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <a href="index.html" style="color: #666; text-decoration: none; margin: 0 10px;">Home</a>
         </div>
     </div>
+
      `;
+      document.body.insertAdjacentHTML('beforeend', footerHTML);
+});
