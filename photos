@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photos</title>
+    <style>
+        body { 
+            background: #fafafa; 
+            padding: 40px 20px; 
+            font-family: sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .home-link {
+            text-decoration: none;
+            color: #666;
+            margin-bottom: 40px;
+            display: inline-block;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .item {
+            background: white;
+            padding: 50px 30px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #eee;
+        }
+        .item:hover {
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">←</a>
+    
+    <div class="grid">
+        <a href="#skating" class="item">⛸️<br><b>Figure Skating</b></a>
+        <a href="#scenery" class="item">🏞️<br><b>Sceneries</b></a>
+        <a href="#images" class="item">🎨<br><b>Random Images</b></a>
+    </div>
+</body>
+</html>
