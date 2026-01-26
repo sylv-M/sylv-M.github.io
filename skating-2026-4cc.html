@@ -48,19 +48,27 @@
             font-weight: 600;
         }
         
-        .album-header .location {
-            color: #666;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-        
         .album-meta {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-top: 20px;
+            margin-top: 15px;
             color: #555;
             flex-wrap: wrap;
+            font-size: 1.1em;
+        }
+        
+        .album-meta span {
+            display: inline-block;
+            padding: 0 15px;
+            position: relative;
+        }
+        
+        .album-meta span:not(:last-child)::after {
+            content: "•";
+            position: absolute;
+            right: -18px;
+            color: #aaa;
         }
         
         /* 照片网格 - 一行3张 */
@@ -242,7 +250,11 @@
             
             .album-meta {
                 flex-direction: column;
-                gap: 10px;
+                gap: 5px;
+            }
+            
+            .album-meta span:not(:last-child)::after {
+                display: none;
             }
         }
         
@@ -265,11 +277,10 @@
     <!-- 相册标题 - 已修改 -->
     <header class="album-header">
         <h1>2026 Four Continents Championships</h1>
-        <div class="location">Beijing, China</div>
         <div class="album-meta">
-            <span>2026.1.22 - 2026.1.25</span>
+            <span>Beijing, China</span>
+            <span>Jan 2026</span>
             <span>10 photos</span>
-            <span>ISU Championship</span>
         </div>
     </header>
     
