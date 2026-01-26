@@ -95,11 +95,11 @@
         }
         
         .photo-image {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s;
+            width: 100%; /* 确保宽度填满容器 */
+            aspect-ratio: 4/3; /* 保持4:3的宽高比 */
+            object-fit: cover; /* 核心：等比例缩放并裁剪，聚焦图片中心 */
+            display: block; /* 确保正确显示 */
+            transition: transform 0.3s; /* 保留原有的悬停放大效果 */
         }
         
         .photo-item:hover .photo-image {
@@ -411,3 +411,4 @@
     </script>
 </body>
 </html>
+
