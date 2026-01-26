@@ -126,21 +126,25 @@
             padding: 25px 30px;
         }
         
-        .preview-item {
-            aspect-ratio: 4/3;
-            border-radius: 6px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: transform 0.3s, background 0.3s;
-        }
+.preview-item {
+    aspect-ratio: 4/3;
+    border-radius: 6px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.3s, background 0.3s;
+    /* 新增的关键属性 */
+    width: 100%;       /* 确保宽度填满格子 */
+    height: 100%;      /* 确保高度填满格子 */
+    object-fit: cover; /* 核心：让图片等比缩放并裁剪以填满容器，显示中间部分 */
+}
         
         .competition-card:hover .preview-item {
             transform: scale(1.03);
@@ -268,4 +272,5 @@
     <script src="footer.js"></script>
 </body>
 </html>
+
 
