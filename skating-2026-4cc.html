@@ -66,7 +66,7 @@
         }
         
         .photo-item {
-            background: white; /* 保持白色背景 */
+            background: white;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 3px 15px rgba(0,0,0,0.08);
@@ -267,85 +267,65 @@
         </div>
     </header>
     
-    <!-- 照片网格 - 只有图片，没有文字 -->
+    <!-- 照片网格 - 完全无文字，包括占位符图片也不显示文字 -->
     <div class="photo-grid">
         <!-- 照片1 -->
         <div class="photo-item" onclick="openLightbox(1)">
-            <img src="https://via.placeholder.com/400x300/4A90E2/FFFFFF?text=Photo+1" 
-                 alt="Gold Medal Ceremony" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/4A90E2/4A90E2" class="photo-image">
         </div>
         
         <!-- 照片2 -->
         <div class="photo-item" onclick="openLightbox(2)">
-            <img src="https://via.placeholder.com/400x300/7ED321/FFFFFF?text=Photo+2" 
-                 alt="Free Skate Performance" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/7ED321/7ED321" class="photo-image">
         </div>
         
         <!-- 照片3 -->
         <div class="photo-item" onclick="openLightbox(3)">
-            <img src="https://via.placeholder.com/400x300/9013FE/FFFFFF?text=Photo+3" 
-                 alt="Morning Practice" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/9013FE/9013FE" class="photo-image">
         </div>
         
         <!-- 照片4 -->
         <div class="photo-item" onclick="openLightbox(4)">
-            <img src="https://via.placeholder.com/400x300/F5A623/FFFFFF?text=Photo+4" 
-                 alt="Costume Details" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/F5A623/F5A623" class="photo-image">
         </div>
         
         <!-- 照片5 -->
         <div class="photo-item" onclick="openLightbox(5)">
-            <img src="https://via.placeholder.com/400x300/BD10E0/FFFFFF?text=Photo+5" 
-                 alt="Ice Reflection" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/BD10E0/BD10E0" class="photo-image">
         </div>
         
         <!-- 照片6 -->
         <div class="photo-item" onclick="openLightbox(6)">
-            <img src="https://via.placeholder.com/400x300/417505/FFFFFF?text=Photo+6" 
-                 alt="Victory Smile" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/417505/417505" class="photo-image">
         </div>
         
         <!-- 照片7 -->
         <div class="photo-item" onclick="openLightbox(7)">
-            <img src="https://via.placeholder.com/400x300/FF6B6B/FFFFFF?text=Photo+7" 
-                 alt="Jump Sequence" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/FF6B6B/FF6B6B" class="photo-image">
         </div>
         
         <!-- 照片8 -->
         <div class="photo-item" onclick="openLightbox(8)">
-            <img src="https://via.placeholder.com/400x300/4ECDC4/FFFFFF?text=Photo+8" 
-                 alt="Spinning" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/4ECDC4/4ECDC4" class="photo-image">
         </div>
         
         <!-- 照片9 -->
         <div class="photo-item" onclick="openLightbox(9)">
-            <img src="https://via.placeholder.com/400x300/FFD166/FFFFFF?text=Photo+9" 
-                 alt="Audience" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/FFD166/FFD166" class="photo-image">
         </div>
         
         <!-- 照片10 -->
         <div class="photo-item" onclick="openLightbox(10)">
-            <img src="https://via.placeholder.com/400x300/118AB2/FFFFFF?text=Photo+10" 
-                 alt="Final Bow" 
-                 class="photo-image">
+            <img src="https://via.placeholder.com/400x300/118AB2/118AB2" class="photo-image">
         </div>
     </div>
     
-    <!-- Lightbox 模态框 - 移除了文字说明 -->
+    <!-- Lightbox 模态框 -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" onclick="closeLightbox()">×</button>
         <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">‹</button>
         <div class="lightbox-content">
-            <img id="lightbox-img" class="lightbox-img" src="" alt="">
+            <img id="lightbox-img" class="lightbox-img" src="">
         </div>
         <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
     </div>
@@ -362,7 +342,7 @@
     <script>
         // Lightbox 功能
         let currentImageIndex = 1;
-        const totalImages = 10; // 改为你的照片总数
+        const totalImages = 10;
         
         function openLightbox(index) {
             currentImageIndex = index;
@@ -372,9 +352,8 @@
             // 获取被点击的图片
             const clickedImage = document.querySelector(`.photo-item:nth-child(${index}) .photo-image`);
             
-            // 设置Lightbox内容 - 只有图片，没有文字
+            // 设置Lightbox内容
             lightboxImg.src = clickedImage.src;
-            lightboxImg.alt = clickedImage.alt;
             
             // 显示Lightbox
             lightbox.classList.add('active');
