@@ -15,7 +15,7 @@
         body {
             background: #f8fafc;
             padding: 20px;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
@@ -57,10 +57,10 @@
             flex-wrap: wrap;
         }
         
-        /* 照片网格 - 一行3张 */
+        /* 照片网格 */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin: 40px 0;
         }
@@ -70,9 +70,8 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s;
             border: 1px solid #f0f0f0;
-            cursor: pointer;
         }
         
         .photo-item:hover {
@@ -80,103 +79,35 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
         
-        .photo-image {
+        .photo-placeholder {
             width: 100%;
             aspect-ratio: 4/3;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s;
-        }
-        
-        .photo-item:hover .photo-image {
-            transform: scale(1.05);
-        }
-        
-        /* 移除了 .photo-info 相关样式，因为不再需要文字描述 */
-        
-        /* Lightbox 模态框样式 */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .lightbox.active {
-            display: flex;
-        }
-        
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-        }
-        
-        .lightbox-img {
-            max-width: 100%;
-            max-height: 80vh;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        
-        /* 移除了 lightbox-caption 样式，因为不需要文字说明 */
-        
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            width: 40px;
-            height: 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
+            color: #aaa;
+            font-weight: 500;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .lightbox-close:hover {
-            background: rgba(255,255,255,0.1);
+        .photo-info {
+            padding: 20px;
         }
         
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
+        .photo-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-size: 1.1em;
         }
         
-        .lightbox-nav:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .lightbox-prev {
-            left: 20px;
-        }
-        
-        .lightbox-next {
-            right: 20px;
+        .photo-desc {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
         }
         
         /* 操作按钮 */
@@ -219,27 +150,9 @@
         }
         
         /* 响应式 */
-        @media (max-width: 1200px) {
-            .photo-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        @media (max-width: 900px) {
-            .photo-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .lightbox-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-        }
-        
         @media (max-width: 768px) {
             .photo-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 20px;
             }
             
@@ -250,12 +163,6 @@
             .album-meta {
                 flex-direction: column;
                 gap: 10px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .photo-grid {
-                gap: 15px;
             }
         }
     </style>
@@ -280,87 +187,42 @@
         </div>
     </header>
     
-    <!-- 照片网格 - 只有图片，没有文字 -->
+    <!-- 照片网格 -->
     <div class="photo-grid">
         <!-- 照片1 -->
-        <div class="photo-item" onclick="openLightbox(1)">
-            <img src="https://via.placeholder.com/400x300/4A90E2/FFFFFF?text=Photo+1" 
-                 alt="Gold Medal Ceremony" 
-                 class="photo-image">
+        <div class="photo-item">
+            <div class="photo-placeholder">
+                Photo 1
+            </div>
+            <div class="photo-info">
+                <div class="photo-title">Gold Medal Ceremony</div>
+                <p class="photo-desc">Champion's winning moment on podium</p>
+            </div>
         </div>
         
         <!-- 照片2 -->
-        <div class="photo-item" onclick="openLightbox(2)">
-            <img src="https://via.placeholder.com/400x300/7ED321/FFFFFF?text=Photo+2" 
-                 alt="Free Skate Performance" 
-                 class="photo-image">
+        <div class="photo-item">
+            <div class="photo-placeholder">
+                Photo 2
+            </div>
+            <div class="photo-info">
+                <div class="photo-title">Free Skate Performance</div>
+                <p class="photo-desc">Elegant dance on ice, artistic program</p>
+            </div>
         </div>
         
         <!-- 照片3 -->
-        <div class="photo-item" onclick="openLightbox(3)">
-            <img src="https://via.placeholder.com/400x300/9013FE/FFFFFF?text=Photo+3" 
-                 alt="Morning Practice" 
-                 class="photo-image">
+        <div class="photo-item">
+            <div class="photo-placeholder">
+                Photo 3
+            </div>
+            <div class="photo-info">
+                <div class="photo-title">Morning Practice</div>
+                <p class="photo-desc">Training session before competition starts</p>
+            </div>
         </div>
         
-        <!-- 照片4 -->
-        <div class="photo-item" onclick="openLightbox(4)">
-            <img src="https://via.placeholder.com/400x300/F5A623/FFFFFF?text=Photo+4" 
-                 alt="Costume Details" 
-                 class="photo-image">
-        </div>
-        
-        <!-- 照片5 -->
-        <div class="photo-item" onclick="openLightbox(5)">
-            <img src="https://via.placeholder.com/400x300/BD10E0/FFFFFF?text=Photo+5" 
-                 alt="Ice Reflection" 
-                 class="photo-image">
-        </div>
-        
-        <!-- 照片6 -->
-        <div class="photo-item" onclick="openLightbox(6)">
-            <img src="https://via.placeholder.com/400x300/417505/FFFFFF?text=Photo+6" 
-                 alt="Victory Smile" 
-                 class="photo-image">
-        </div>
-        
-        <!-- 照片7 -->
-        <div class="photo-item" onclick="openLightbox(7)">
-            <img src="https://via.placeholder.com/400x300/FF6B6B/FFFFFF?text=Photo+7" 
-                 alt="Jump Sequence" 
-                 class="photo-image">
-        </div>
-        
-        <!-- 照片8 -->
-        <div class="photo-item" onclick="openLightbox(8)">
-            <img src="https://via.placeholder.com/400x300/4ECDC4/FFFFFF?text=Photo+8" 
-                 alt="Spinning" 
-                 class="photo-image">
-        </div>
-        
-        <!-- 照片9 -->
-        <div class="photo-item" onclick="openLightbox(9)">
-            <img src="https://via.placeholder.com/400x300/FFD166/FFFFFF?text=Photo+9" 
-                 alt="Audience" 
-                 class="photo-image">
-        </div>
-        
-        <!-- 照片10 -->
-        <div class="photo-item" onclick="openLightbox(10)">
-            <img src="https://via.placeholder.com/400x300/118AB2/FFFFFF?text=Photo+10" 
-                 alt="Final Bow" 
-                 class="photo-image">
-        </div>
-    </div>
-    
-    <!-- Lightbox 模态框 - 移除了文字说明 -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" onclick="closeLightbox()">×</button>
-        <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">‹</button>
-        <div class="lightbox-content">
-            <img id="lightbox-img" class="lightbox-img" src="" alt="">
-        </div>
-        <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
+        <!-- 可以继续添加更多照片，总共10个 -->
     </div>
     
     <!-- 操作按钮 -->
@@ -369,62 +231,6 @@
         <a href="photos.html" class="action-btn btn-outline">All Photos</a>
     </div>
     
-    <!-- 页脚 -->
     <script src="footer.js"></script>
-    
-    <script>
-        // Lightbox 功能
-        let currentImageIndex = 1;
-        const totalImages = 10; // 改为你的照片总数
-        
-        function openLightbox(index) {
-            currentImageIndex = index;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            
-            // 获取被点击的图片
-            const clickedImage = document.querySelector(`.photo-item:nth-child(${index}) .photo-image`);
-            
-            // 设置Lightbox内容 - 只有图片，没有文字
-            lightboxImg.src = clickedImage.src;
-            lightboxImg.alt = clickedImage.alt;
-            
-            // 显示Lightbox
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-        
-        function changeImage(direction) {
-            currentImageIndex += direction;
-            
-            // 循环浏览图片
-            if (currentImageIndex < 1) currentImageIndex = totalImages;
-            if (currentImageIndex > totalImages) currentImageIndex = 1;
-            
-            // 模拟点击新图片
-            openLightbox(currentImageIndex);
-        }
-        
-        // 键盘控制
-        document.addEventListener('keydown', function(e) {
-            const lightbox = document.getElementById('lightbox');
-            if (!lightbox.classList.contains('active')) return;
-            
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') changeImage(-1);
-            if (e.key === 'ArrowRight') changeImage(1);
-        });
-        
-        // 点击背景关闭
-        document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target === this) closeLightbox();
-        });
-    </script>
 </body>
 </html>
