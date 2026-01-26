@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figure Skating - ya's landfill</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: #f8fafc;
+            color: #333;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        
+        /* 导航 */
+        .breadcrumb {
+            margin: 20px 0 30px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            text-decoration: none;
+            color: #667eea;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 页面标题 */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .page-header p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 比赛目录 - 纵向单列 */
+        .competition-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .competition-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .competition-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: #e0e0e0;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            background: #fafbff;
+            border-bottom: 1px solid #f0f4ff;
+        }
+        
+        .competition-info {
+            flex: 1;
+        }
+        
+        .competition-name {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .competition-meta {
+            color: #666;
+            font-size: 0.95em;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .competition-date {
+            background: #f0f7ff;
+            color: #2c7be5;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            border: 1px solid #e1f0ff;
+        }
+        
+        /* 预览图网格 */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 25px 30px;
+        }
+        
+        .preview-item {
+            aspect-ratio: 4/3;
+            border-radius: 6px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s, background 0.3s;
+        }
+        
+        .competition-card:hover .preview-item {
+            transform: scale(1.03);
+            background: linear-gradient(135deg, #eef1f7 0%, #dce1ec 100%);
+        }
+        
+        .photo-count {
+            text-align: center;
+            padding: 18px;
+            background: #f9fafc;
+            color: #666;
+            font-size: 0.95em;
+            border-top: 1px solid #f0f0f0;
+            font-weight: 500;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+            margin-top: 20px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .back-btn:hover {
+            background: #5a6fd8;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .preview-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 20px;
+            }
+            
+            .competition-name {
+                font-size: 1.3em;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8em;
+            }
+            
+            .page-header p {
+                font-size: 0.95em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .competition-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .card-header,
+            .preview-grid {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航面包屑 -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> &gt; 
+        <a href="photos.html">Photos</a> &gt; 
+        <span>Figure Skating</span>
+    </div>
+    
+    <!-- 页面标题 -->
+    <header class="page-header">
+        <h1>Figure Skating</h1>
+        <p>Competitions and training moments collection</p>
+    </header>
+    
+    <!-- 比赛目录 -->
+    <div class="competition-list">
+        <!-- 2026 Four Continents -->
+        <a href="skating-2026-4cc.html" class="competition-card">
+            <div class="card-header">
+                <div class="competition-info">
+                    <h2 class="competition-name">2026 Four Continents Championships</h2>
+                    <div class="competition-meta">
+                        <span>Beijing, China</span>
+                    </div>
+                </div>
+                <div class="competition-date">Jan 2026</div>
+            </div>
+            
+            <div class="preview-grid">
+                <div class="preview-item">PHOTO 1</div>
+                <div class="preview-item">PHOTO 2</div>
+                <div class="preview-item">PHOTO 3</div>
+            </div>
+            
+            <div class="photo-count">
+                10 photos • Click to view
+            </div>
+        </a>
+    </div>
+    
+    <!-- 返回按钮 -->
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="photos.html" class="back-btn">Back to Photos</a>
+    </div>
+    
+    <script src="footer.js"></script>
+</body>
+</html>
