@@ -3,49 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Four Continents</title>
+    <title>2026 Four Continents - Figure Skating</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         body {
-            background: #111;
-            padding: 0;
+            background: #f8fafc;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
-        /* 照片网格 - 极简 */
+        /* 导航 */
+        .breadcrumb {
+            margin: 20px 0 30px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        /* 页面标题 */
+        .album-header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 12px;
+            color: #333;
+            margin-bottom: 40px;
+            border: 1px solid #e8edf5;
+        }
+        
+        .album-header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .album-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            color: #555;
+            flex-wrap: wrap;
+        }
+        
+        /* 照片网格 - 一行3张 */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            margin: 0;
+            gap: 25px;
+            margin: 40px 0;
         }
         
         .photo-item {
+            background: white; /* 保持白色背景 */
+            border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #f0f0f0;
             cursor: pointer;
-            background: #000;
-            position: relative;
+        }
+        
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
         
         .photo-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
             aspect-ratio: 4/3;
+            object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            transition: transform 0.3s;
         }
         
         .photo-item:hover .photo-image {
             transform: scale(1.05);
-            opacity: 0.9;
         }
         
-        /* Lightbox - 极简 */
+        /* Lightbox 模态框样式 */
         .lightbox {
             display: none;
             position: fixed;
@@ -53,7 +100,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -63,157 +110,291 @@
             display: flex;
         }
         
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
         .lightbox-img {
-            max-width: 95%;
-            max-height: 95vh;
-            object-fit: contain;
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
         
         .lightbox-close {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #fff;
-            font-size: 24px;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
             cursor: pointer;
-            background: rgba(0,0,0,0.3);
+            background: none;
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.7;
-            transition: opacity 0.3s;
+            border-radius: 50%;
+            transition: background 0.3s;
         }
         
         .lightbox-close:hover {
-            opacity: 1;
-            background: rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.1);
         }
         
         .lightbox-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.1);
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.7;
-            transition: opacity 0.3s;
+            transition: background 0.3s;
         }
         
         .lightbox-nav:hover {
-            opacity: 1;
-            background: rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.2);
         }
         
         .lightbox-prev {
-            left: 10px;
+            left: 20px;
         }
         
         .lightbox-next {
-            right: 10px;
+            right: 20px;
+        }
+        
+        /* 操作按钮 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+        
+        .btn-outline {
+            border: 1px solid #ddd;
+            color: #666;
+            background: white;
+        }
+        
+        .btn-outline:hover {
+            border-color: #667eea;
+            color: #667eea;
+            background: #f8fafc;
         }
         
         /* 响应式 */
+        @media (max-width: 1200px) {
+            .photo-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
         @media (max-width: 900px) {
             .photo-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .album-header h1 {
+                font-size: 1.8em;
+            }
+            
+            .album-meta {
+                flex-direction: column;
+                gap: 10px;
             }
         }
         
         @media (max-width: 480px) {
             .photo-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .lightbox-nav {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 照片网格 -->
+    <!-- 导航 -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> &gt;
+        <a href="photos.html">Photos</a> &gt;
+        <a href="figure-skating.html">Figure Skating</a> &gt;
+        <span>2026 Four Continents</span>
+    </div>
+    
+    <!-- 相册标题 -->
+    <header class="album-header">
+        <h1>2026 Four Continents Championships</h1>
+        <p>Beijing, China • January 2026</p>
+        <div class="album-meta">
+            <span>Beijing, China</span>
+            <span>10 photos</span>
+            <span>ISU Championship</span>
+        </div>
+    </header>
+    
+    <!-- 照片网格 - 只有图片，没有文字 -->
     <div class="photo-grid">
+        <!-- 照片1 -->
         <div class="photo-item" onclick="openLightbox(1)">
-            <img src="https://via.placeholder.com/400x300/4A90E2/FFFFFF?text=1" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/4A90E2/FFFFFF?text=Photo+1" 
+                 alt="Gold Medal Ceremony" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片2 -->
         <div class="photo-item" onclick="openLightbox(2)">
-            <img src="https://via.placeholder.com/400x300/7ED321/FFFFFF?text=2" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/7ED321/FFFFFF?text=Photo+2" 
+                 alt="Free Skate Performance" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片3 -->
         <div class="photo-item" onclick="openLightbox(3)">
-            <img src="https://via.placeholder.com/400x300/9013FE/FFFFFF?text=3" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/9013FE/FFFFFF?text=Photo+3" 
+                 alt="Morning Practice" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片4 -->
         <div class="photo-item" onclick="openLightbox(4)">
-            <img src="https://via.placeholder.com/400x300/F5A623/FFFFFF?text=4" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/F5A623/FFFFFF?text=Photo+4" 
+                 alt="Costume Details" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片5 -->
         <div class="photo-item" onclick="openLightbox(5)">
-            <img src="https://via.placeholder.com/400x300/BD10E0/FFFFFF?text=5" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/BD10E0/FFFFFF?text=Photo+5" 
+                 alt="Ice Reflection" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片6 -->
         <div class="photo-item" onclick="openLightbox(6)">
-            <img src="https://via.placeholder.com/400x300/417505/FFFFFF?text=6" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/417505/FFFFFF?text=Photo+6" 
+                 alt="Victory Smile" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片7 -->
         <div class="photo-item" onclick="openLightbox(7)">
-            <img src="https://via.placeholder.com/400x300/FF6B6B/FFFFFF?text=7" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/FF6B6B/FFFFFF?text=Photo+7" 
+                 alt="Jump Sequence" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片8 -->
         <div class="photo-item" onclick="openLightbox(8)">
-            <img src="https://via.placeholder.com/400x300/4ECDC4/FFFFFF?text=8" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/4ECDC4/FFFFFF?text=Photo+8" 
+                 alt="Spinning" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片9 -->
         <div class="photo-item" onclick="openLightbox(9)">
-            <img src="https://via.placeholder.com/400x300/FFD166/FFFFFF?text=9" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/FFD166/FFFFFF?text=Photo+9" 
+                 alt="Audience" 
+                 class="photo-image">
         </div>
+        
+        <!-- 照片10 -->
         <div class="photo-item" onclick="openLightbox(10)">
-            <img src="https://via.placeholder.com/400x300/118AB2/FFFFFF?text=10" class="photo-image">
+            <img src="https://via.placeholder.com/400x300/118AB2/FFFFFF?text=Photo+10" 
+                 alt="Final Bow" 
+                 class="photo-image">
         </div>
     </div>
     
-    <!-- Lightbox -->
+    <!-- Lightbox 模态框 - 移除了文字说明 -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" onclick="closeLightbox()">×</button>
         <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">‹</button>
         <div class="lightbox-content">
-            <img id="lightbox-img" class="lightbox-img" src="">
+            <img id="lightbox-img" class="lightbox-img" src="" alt="">
         </div>
         <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">›</button>
     </div>
     
+    <!-- 操作按钮 -->
+    <div class="action-buttons">
+        <a href="figure-skating.html" class="action-btn btn-outline">Back to Figure Skating</a>
+        <a href="photos.html" class="action-btn btn-outline">All Photos</a>
+    </div>
+    
+    <!-- 页脚 -->
+    <script src="footer.js"></script>
+    
     <script>
+        // Lightbox 功能
         let currentImageIndex = 1;
-        const totalImages = 10;
+        const totalImages = 10; // 改为你的照片总数
         
         function openLightbox(index) {
             currentImageIndex = index;
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
+            
+            // 获取被点击的图片
             const clickedImage = document.querySelector(`.photo-item:nth-child(${index}) .photo-image`);
             
+            // 设置Lightbox内容 - 只有图片，没有文字
             lightboxImg.src = clickedImage.src;
+            lightboxImg.alt = clickedImage.alt;
+            
+            // 显示Lightbox
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
         
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
         
         function changeImage(direction) {
             currentImageIndex += direction;
+            
+            // 循环浏览图片
             if (currentImageIndex < 1) currentImageIndex = totalImages;
             if (currentImageIndex > totalImages) currentImageIndex = 1;
+            
+            // 模拟点击新图片
             openLightbox(currentImageIndex);
         }
         
@@ -231,7 +412,6 @@
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target === this) closeLightbox();
         });
-    <script src="footer.js"></script>
+    </script>
 </body>
 </html>
-
