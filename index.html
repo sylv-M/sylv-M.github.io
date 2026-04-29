@@ -21,6 +21,127 @@
             margin: 0 auto;
         }
         
+        /* ===== 精选推荐区样式 ===== */
+        .featured-section {
+            margin-bottom: 40px;
+            padding: 0;
+        }
+        
+        .featured-header h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+        
+        /* 横向滚动区域 */
+        .featured-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+        }
+        .featured-scroll::-webkit-scrollbar {
+            height: 5px;
+        }
+        .featured-scroll::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .featured-scroll::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        
+        /* 精选卡片 */
+        .featured-card {
+            flex: 0 0 260px;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f6;
+        }
+        .featured-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        
+        .placeholder-card:hover {
+            transform: none;
+        }
+        .placeholder-card {
+            cursor: default;
+        }
+        
+        /* 封面图容器 */
+        .card-cover-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .card-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .featured-card:not(.placeholder-card):hover .card-cover {
+            transform: scale(1.04);
+        }
+        
+        /* Recommendation 标签 */
+        .rec-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #475569;
+            color: white;
+            font-size: 0.65em;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+            letter-spacing: 0.3px;
+            z-index: 2;
+            backdrop-filter: blur(2px);
+        }
+        
+        /* 标题在封面左下角 */
+        .card-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            padding: 30px 12px 10px 12px;
+        }
+        .card-title-overlay h3 {
+            color: white;
+            font-size: 1em;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .card-info {
+            padding: 10px 12px;
+            background: white;
+        }
+        .card-info p {
+            color: #64748b;
+            font-size: 0.75em;
+            margin: 0;
+        }
+        
+        /* 原样式 */
         .header {
             text-align: center;
             padding: 60px 40px;
@@ -41,13 +162,6 @@
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
-        }
-        
-        .sections-title {
-            text-align: center;
-            font-size: 2.2em;
-            margin: 40px 0;
-            color: #2c3e50;
         }
         
         .grid {
@@ -92,15 +206,7 @@
             font-size: 16px;
         }
         
-        .footer {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            border-top: 1px solid #eee;
-            margin-top: 40px;
-        }
-        
-        /* 响应式设计 */
+        /* 响应式 */
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
@@ -114,16 +220,79 @@
             .header h1 {
                 font-size: 2.2em;
             }
+            
+            .featured-card {
+                flex: 0 0 220px;
+            }
+            
+            .featured-header h2 {
+                font-size: 1.3em;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- ===== 精选推荐栏（页面最顶部） ===== -->
+    <div class="featured-section">
+        <div class="featured-header">
+            <h2>✨ 精选推荐</h2>
+        </div>
+        <div class="featured-scroll" id="featuredScroll">
+            <!-- 卡片1：《雪原安魂诗》 -->
+            <div class="featured-card" onclick="location.href='snow-elegy.html'">
+                <div class="card-cover-wrapper">
+                    <img src="https://picsum.photos/id/104/400/300" 
+                         alt="雪原安魂诗封面" 
+                         class="card-cover">
+                    <div class="rec-tag">Recommendation</div>
+                    <div class="card-title-overlay">
+                        <h3>雪原安魂诗</h3>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <p>我与一位朋友的故事</p>
+                </div>
+            </div>
+
+            <!-- 卡片2：预留 -->
+            <div class="featured-card placeholder-card">
+                <div class="card-cover-wrapper">
+                    <img src="https://picsum.photos/id/20/400/300" 
+                         alt="预留" 
+                         class="card-cover">
+                    <div class="rec-tag">Recommendation</div>
+                    <div class="card-title-overlay">
+                        <h3>即将上线</h3>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <p>✨ 敬请期待</p>
+                </div>
+            </div>
+
+            <!-- 卡片3：预留 -->
+            <div class="featured-card placeholder-card">
+                <div class="card-cover-wrapper">
+                    <img src="https://picsum.photos/id/26/400/300" 
+                         alt="预留" 
+                         class="card-cover">
+                    <div class="rec-tag">Recommendation</div>
+                    <div class="card-title-overlay">
+                        <h3>即将上线</h3>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <p>✨ 敬请期待</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- introduction -->
     <header class="header">
         <h1>🌱 ya's landfill</h1>
         <p>Here is ya's landfill, including photos, journals, notes, abstract musings, codes, and papers so far.</p>
     </header>
-    
     
     <!-- 六大板块网格 -->
     <div class="grid">
@@ -159,12 +328,10 @@
     </div>
         
     <script>
-    // 简单的交互效果
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.card');
         
         cards.forEach(card => {
-            // 悬停效果
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-10px) scale(1.02)';
             });
@@ -173,13 +340,11 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
             
-            // 点击效果：只有#链接显示提示
             card.addEventListener('click', function(e) {
                 if (this.getAttribute('href') === '#') {
                     e.preventDefault();
                     alert('constructing...');
                 }
-                // 其他情况（如photos.html）正常跳转
             });
         });
     });
@@ -188,7 +353,6 @@
     <script src="footer.js"></script>
 </body>
 </html>
-
 
 
 
