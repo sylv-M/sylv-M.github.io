@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to ya's landfill site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* ===== 精选推荐区样式 ===== */
+        .featured-section {
+            margin-bottom: 40px;
+            padding: 0;
+        }
+        
+        .featured-header h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+        
+        /* 横向滚动区域 */
+        .featured-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+        }
+        .featured-scroll::-webkit-scrollbar {
+            height: 5px;
+        }
+        .featured-scroll::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .featured-scroll::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        
+        /* 精选卡片 */
+        .featured-card {
+            flex: 0 0 260px;
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f6;
+        }
+        .featured-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        
+        .placeholder-card:hover {
+            transform: none;
+        }
+        .placeholder-card {
+            cursor: default;
+        }
+        
+        /* 封面图容器 */
+        .card-cover-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 2.5;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .card-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .featured-card:not(.placeholder-card):hover .card-cover {
+            transform: scale(1.04);
+        }
+        
+        /* Recommendation 标签 */
+        .rec-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #475569;
+            color: white;
+            font-size: 0.65em;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+            letter-spacing: 0.3px;
+            z-index: 2;
+            backdrop-filter: blur(2px);
+        }
+        
+        /* 标题在封面左下角 */
+        .card-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            padding: 30px 12px 10px 12px;
+        }
+        .card-title-overlay h3 {
+            color: white;
+            font-size: 1em;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .card-info {
+            padding: 10px 12px;
+            background: white;
+        }
+        .card-info p {
+            color: #64748b;
+            font-size: 0.75em;
+            margin: 0;
+        }
+        
+        /* 原样式 */
+        .header {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .card-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .card p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .featured-card {
+                flex: 0 0 220px;
+            }
+            
+            .featured-header h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center; background: #f7f9fe; padding: 10px 0; border-bottom: 1px solid #e3e8f7;">
+   <a href="/" style="font-family: sans-serif; color: #425AEF; font-weight: bold; text-decoration: none; padding: 6px 16px; border: 1px solid #425AEF; border-radius: 20px; background: #fff; display: inline-block;">
+      🔙  Back to homepage
+   </a>
+</div>
+   <!-- ===== recommendation(heading) ===== -->
+<div class="featured-section">
+    <div class="featured-header">
+        <h2>Recommendation</h2>
+    </div>
+    <div class="featured-scroll" id="featuredScroll">
+        <!-- lineked by recommeadation.js -->
+    </div>
+</div>
+
+    <!-- introduction -->
+    <header class="header">
+        <h1>🌱 ya's landfill</h1>
+        <p>Here is ya's landfill, including photos, journals, notes, abstract musings, codes, and papers so far.</p>
+    </header>
+    
+    <!-- main part -->
+    <div class="grid">
+        <a href="photos.html" class="card">
+            <span class="card-icon">📷</span>
+            <h3>photos</h3>
+         </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">📝</span>
+            <h3>journals</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">✍</span>
+            <h3>notes</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">💻</span>
+            <h3>codes</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">☁️</span>
+            <h3>abstract musings</h3>
+        </a>
+        
+        <a href="#" class="card">
+            <span class="card-icon">📑</span>
+            <h3>papers</h3>
+         </a>
+    </div>
+        
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // loading recommendations
+        if (typeof loadRecommendations === 'function') {
+            loadRecommendations();
+        }
+        
+        // interactions
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            card.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    alert('constructing...');
+                }
+            });
+        });
+    });
+    </script>
+    
+    <script src="recommendation-heading.js"></script>
+    <script src="footer.js"></script>
+</body>
+</html>
+
+

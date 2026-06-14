@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Photos</title>
+    <style>
+        body { 
+            background: #fafafa; 
+            padding: 40px 20px; 
+            font-family: sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .home-link {
+            text-decoration: none;
+            color: #666;
+            margin-bottom: 40px;
+            display: inline-block;
+            font-size: 18px;
+        }
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .item {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #eee;
+            transition: all 0.2s ease;
+        }
+        .item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+        .item b {
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
+        }
+        .item::before {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">←</a>
+    
+    <div class="list">
+        <a href="figure-skating.html" class="item">⛸️<b>Figure Skating</b></a>
+        <a href="#scenery" class="item">🏞️<b>Sceneries</b></a>
+        <a href="#images" class="item">🧍🏻<b>Images</b></a>
+    </div>
+    
+    <!-- 添加这行：自动加载页脚 -->
+    <script src="footer.js"></script>
+</body>
+</html>
